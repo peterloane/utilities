@@ -5,26 +5,26 @@ echo "script name : $0"
 required_usage() {
   printf "\n"
   printf "Required usage is: "
-  echo "./ugo.sh <go-version-digits>"
+  echo "./ugo.sh <go-version-digits> <pw-sudo>"
   echo "e.g. 1.18.4, 1.19 etc"
   printf "Check input and try again\n"
   exit 1 
 }
 
-if [ $# -ne 1 ];
+if [ $# -ne 2 ];
   then required_usage
 fi	  
 
 
-printf "\nCurrent Go version is: "
+printf "\nCurrent Go version is: \n"
 go version
 
 digits=$1
+pw=$2
 
 curl -O https://storage.googleapis.com/golang/go${digits}.linux-amd64.tar.gz
 
-echo "ubuntu" | sudo
-sudo rm -rf /usr/local/go/
+sudo -S < <(echo ${pw}) sudo rm -rf /usr/local/go/
 sudo tar -C /usr/local/ -xvf go${digits}.linux-amd64.tar.gz
 
 #export PATH="/usr/local/go/bin/:$PATH"
