@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Update go version
+
 echo "script name : $0"
 
 required_usage() {
